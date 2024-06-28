@@ -1,5 +1,4 @@
 import { useRef } from "react"
-import Contactos from "./Contactos"
 import { useNavigate } from "react-router-dom"
 
 async function PostRegistro(obj) {
@@ -26,21 +25,22 @@ const Registro = () => {
     const clave = useRef('')
 
     const espacios = () => {
+        // console.log("nombre", nombre.current.value)
         if (!nombre.current.value && !usuario.current.value && !clave.current.value) {
             alert("hay espacios vacios")
         } else {
+            
             nav("/login")
         }
     }
 
     return (
         <>
-            <Contactos />
-            <input className="inicio" type="text" id="nombre" placeholder="Ingrese su nombre" ref={nombre} />
-            <input className="inicio" type="gmail" id="correos" placeholder="Ingrese su correo" ref={usuario} />
-            <input className="inicio" type="password" id="clave" placeholder="Ingrese su contraseña" ref={clave} />
+            <input className="inicio" type="text" placeholder="Ingrese su nombre" ref={nombre} />
+            <input className="inicio" type="gmail" placeholder="Ingrese su correo" ref={usuario} />
+            <input className="inicio" type="password" placeholder="Ingrese su contraseña" ref={clave} />
             <button className="boton" onClick={PostRegistro}>Guardar</button>
-            <button className="boton" id="guardarclave" onClick={espacios}>Login</button>
+            <button className="boton" onClick={espacios}>Login</button>
         </>
     )
 }

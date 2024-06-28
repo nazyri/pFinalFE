@@ -1,7 +1,25 @@
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
-const Login = ((pagina) => {
+// async function GetLogin(obj) {
 
+//   try {
+//       const respuesta = await fetch(`http://localhost:3001/users`, {
+//           method: "POST",
+//           headers: {
+//           },
+//           body: JSON.stringify(obj)
+//       })
+//       let agregar = await respuesta.json()
+
+//       console.log(agregar)
+//   } catch (error) {
+//       console.error(error)
+//   }
+// }
+
+const Login = () => {
+    const nav = useNavigate()
     const usuario = useRef ('')
     const clave = useRef ('')
     
@@ -9,7 +27,7 @@ const Login = ((pagina) => {
     if (!usuario.current.value && !clave.current.value) {
        alert ("hay espacios vacios")
     }else{
-       pagina();
+      nav("/principal")
        
     }
     }
@@ -36,6 +54,6 @@ const Login = ((pagina) => {
     <button className="boton" id="guardarclave"  onClick={vacios}>Ir a la pagina</button>
       </>
     )
-  })
+  }
   
   export default Login
