@@ -13,7 +13,7 @@ function Contactos() {
       <input type="text" placeholder="ingrese su nombre"/>
       <input type="coreo" placeholder="ingrese su gmail"/>
       <input type="text" />
-      <button onClick={"/adopcion"}>Enviar</button>
+      <button onClick={"./adopcion"}>Enviar</button>
       </>
     )
   }

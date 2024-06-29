@@ -22,3 +22,22 @@ function Principal() {
   }
   
   export default Principal
+  // boton de contactar en cada imagen 
+  //razas de perros 
+  //1. Pastor alemán
+// 2. Husky siberiano
+// 3. Golden retriever
+// 4. Bulldog francés
+// 5. Chihuahua
+// 6. Pit bull terrier americano
+// 7. Beagle
+// 8. Mastín
+// 9. Dóberman
+// 10. Rottweiler
+//razas de gatos
+// Persa
+// Azul ruso
+// Siamés
+// Angora turco
+// Siberiano
+// Bengalí
