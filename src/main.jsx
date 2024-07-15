@@ -1,17 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Registro from './Registro.jsx'
 import Login from './Login.jsx'
 import Principal from './Principal.jsx'
+import ListaAdopcion from './ListaAdopcion.jsx'
+import Adopcion from './Adopcion.jsx'
+import SeccionDestacada from './SeccionDestacada.jsx'
+import Editar from './Editar.jsx'
+import Canino from './Canino.jsx'
+import Felino from './Felino.jsx'
+import Contacto from './Contacto.jsx'
 
 const router= createBrowserRouter([
   {
     path:"/",
     element: <Registro/>
   },
+  
   {
     path:"/Login",
     element: <Login/>
@@ -21,13 +28,39 @@ const router= createBrowserRouter([
     element: <Principal/>
   },
   {
-    path:"/adopcion",
-    element: <Principal/>
+    path:"/ListaAdopcion",
+    element: <ListaAdopcion/>
   },
   {
-    path:"/contactos",
-    element: <Principal/>
+    path:"/Adopcion",
+    element: < Adopcion/>
   },
+  {
+    path: "/destacada", 
+    element: <SeccionDestacada/> 
+  },
+  {
+    path: "/editar", 
+    element: <Editar/> 
+  },
+  {
+    path: "/canino", 
+    element: <Canino/> 
+  },
+  {
+    path: "/felino", 
+    element: <Felino/> 
+  },
+  {
+    path: "/contactarnos", 
+    element: <Contacto/> 
+  },
+  {
+    path: "/contactarnos", 
+    // element: <Contactarnos/> 
+  },
+
+
 ])
 
 

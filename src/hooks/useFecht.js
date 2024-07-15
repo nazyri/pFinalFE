@@ -1,7 +1,7 @@
-
 const url =  "http://localhost:3001/"
 
-const getData = async (endpoint, id = "") => {
+
+  const get = async (endpoint, id = "") => {
     try {
       const response = await fetch(url+endpoint+"/"+id, {
         method: "GET",
@@ -17,11 +17,12 @@ const getData = async (endpoint, id = "") => {
     } catch (e) {
       console.error(e);
     
+         
     } 
 };
 
 
-  const postData = async (endpoint, body) => {  
+  const post = async (endpoint, body) => {  
     try {
       const response = await fetch(url+endpoint, {
         method: "POST",
@@ -40,14 +41,16 @@ const getData = async (endpoint, id = "") => {
     
       return null;
     } 
+  
+
 }
 
 
   
-   const putData = async (endpoint, body) => {
+   const put = async (endpoint,id, body) => {
 
     try {
-      const response = await fetch(url+endpoint, {
+      const response = await fetch(url+endpoint+id, {
         method: "PUT",
         mode: "cors",
         credentials: "same-origin",
@@ -64,6 +67,27 @@ const getData = async (endpoint, id = "") => {
       
       return null;
     } 
+ 
 }
 
-export { getData, postData, putData };
+const Delete = async (endpoint, id ) => {
+  try {
+    console.log('llega al delete');
+    const response = await fetch(url+endpoint+id, {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const data  = response.json()
+  return data
+   
+  } catch (e) {
+    console.error(e);
+  
+  } 
+};
+
+export { get, post, put, Delete};

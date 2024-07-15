@@ -1,59 +1,61 @@
-import { useEffect, useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { get } from "./hooks/useFecht";
+import "./styles/Login.css"
 
-// async function GetLogin(obj) {
-
-//   try {
-//       const respuesta = await fetch(`http://localhost:3001/users`, {
-//           method: "POST",
-//           headers: {
-//           },
-//           body: JSON.stringify(obj)
-//       })
-//       let agregar = await respuesta.json()
-
-//       console.log(agregar)
-//   } catch (error) {
-//       console.error(error)
-//   }
-// }
 
 const Login = () => {
-    const nav = useNavigate()
-    const usuario = useRef ('')
-    const clave = useRef ('')
-    
-    const vacios = () => {
-    if (!usuario.current.value && !clave.current.value) {
-       alert ("hay espacios vacios")
-    }else{
-      nav("/principal")
-       
-    }
-    }
+  const nav = useNavigate();
+  const [useData, setUseData]= useState([])
+  const [correo, setCorreo] = useState("");
+  const [clave, setClave] = useState("");
 
-    useEffect (()=>{
-        const GetLogin = async() => {
-            
-        try {
-            const respuesta = await fetch('http://localhost:3001/api/task')
-            const agregar = await respuesta.json()
-        
-                console.log(`Los datos son ${agregar}`);
-            } catch (error) {
-                console.error(error);
-            }
-            }
-            GetLogin()
-            },[])
+  const correoRef = useRef();
+  const claveRef = useRef();
 
-    return (
-      <>
-    <input className="inicio" type="gmail" id="correos" placeholder="Ingrese su correo"ref={usuario}/>
-    <input className="inicio" type="password" id="clave" placeholder="Ingrese su contraseña"ref={clave}/>
-    <button className="boton" id="guardarclave"  onClick={vacios}>Ir a la pagina</button>
-      </>
-    )
-  }
-  
-  export default Login
+  const vacios = () => {
+    const correoTrim = correoRef.current.value.trim();
+    const claveTrim = claveRef.current.value.trim();
+
+    if (!correoTrim || !claveTrim) {
+      alert("Por favor complete todos los campos.");
+      return;
+    }
+    // Llama a la función para autenticar al usuario
+    const valida=useData.find(user=>user.correo === correo && user.clave === clave)
+    authenticate(valida)
+  };
+
+  const authenticate = async (valida) => {
+    try {
+      if(valida){
+        nav("/principal")
+        return
+      }else{
+      alert("Ocurrió un error. Inténtelo más tarde.");
+      }
+    } catch (error) {
+      console.error("Error de autenticación:", error);
+      alert("Ocurrió un error. Inténtelo más tarde.");
+    }
+  };
+
+  useEffect (()=>{
+    const usarGet =async ()=>{
+    const data = await get("users")
+       setUseData(data)
+   }
+   console.log(useData);
+   usarGet()
+   },[])
+
+  return (
+    <div className="seccion6">
+      <input className="inicio" ref={correoRef} type="email" id="correos" placeholder="Ingrese su correo" value={correo} onChange={(e) => setCorreo(e.target.value)}/>
+      <input className="inicio"ref={claveRef} type="password"id="clave"placeholder="Ingrese su contraseña" value={clave} onChange={(e) => setClave(e.target.value)}/>
+      <button className="boton" id="guardarclave" onClick={vacios}>Ir a la página</button>
+    </div>
+  );
+};
+
+export default Login;

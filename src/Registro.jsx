@@ -1,47 +1,52 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
+import { post } from "./hooks/useFecht"
 import { useNavigate } from "react-router-dom"
+import "./styles/Registro.css"
 
-async function PostRegistro(obj) {
-
-    try {
-        const respuesta = await fetch(`http://localhost:3001/users`, {
-            method: "POST",
-            headers: {
-            },
-            body: JSON.stringify(obj)
-        })
-        let agregar = await respuesta.json()
-
-        console.log(agregar)
-    } catch (error) {
-        console.error(error)
-    }
-}
 
 const Registro = () => {
     const nav = useNavigate()
-    const nombre = useRef('')
-    const usuario = useRef('')
-    const clave = useRef('')
+    const [nombre,setNombre] =useState('')
+    const [correo,setCorreo] =useState('')
+    const [clave,setClave]= useState('')
 
-    const espacios = () => {
-        // console.log("nombre", nombre.current.value)
-        if (!nombre.current.value && !usuario.current.value && !clave.current.value) {
-            alert("hay espacios vacios")
-        } else {
-            
-            nav("/login")
+    const nombreRef = useRef()
+    const correoRef =useRef()
+    const claveRef =useRef()
+    
+    const crearUsuario =()=>{
+        const user={
+            nombre:nombre,
+            correo:correo,
+            clave:clave
         }
+        post('users',user)
+
     }
+    const espacios = () => {
+        const nombreTrim = nombreRef.current.value
+        const correoTrim = correoRef.current.value
+        const claveTrim = claveRef.current.value
+        // console.log("nombre", nombre.current.value)
+        if (!nombreTrim || !correoTrim || !claveTrim) {
+            alert("espacios vacios")
+            return
+        } else {
+            nav("/login")
+            
+
+        }
+        }
 
     return (
-        <>
-            <input className="inicio" type="text" placeholder="Ingrese su nombre" ref={nombre} />
-            <input className="inicio" type="gmail" placeholder="Ingrese su correo" ref={usuario} />
-            <input className="inicio" type="password" placeholder="Ingrese su contraseña" ref={clave} />
-            <button className="boton" onClick={PostRegistro}>Guardar</button>
+        <div className="seccion">
+            <input className="inicio" ref={nombreRef} type="text" placeholder="Ingrese su nombre" onChange={(e)=>setNombre(e.target.value)} />
+            <input className="inicio" ref={correoRef} type="mail" placeholder="Ingrese su correo" onChange={(e)=>setCorreo(e.target.value)} />
+            <input className="inicio" ref={claveRef} type="password" placeholder="Ingrese su contraseña" onChange={(e)=>setClave(e.target.value)} />
+            <button className="boton" onClick={crearUsuario}>Guardar</button>
             <button className="boton" onClick={espacios}>Login</button>
-        </>
+
+        </div>
     )
 }
 
